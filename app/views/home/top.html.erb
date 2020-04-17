@@ -1,0 +1,71 @@
+<div class="main">
+    
+ <div class="top">
+  <h1>10DAYS!</h1>
+ </div>
+
+ <div class="section2">
+  <div class="contaner">
+    <h1>１０DAYS!で習慣付けを始めよう！</h1>
+    <div class="about">
+      <div class="about-text text1">
+        <i class="fas fa-shoe-prints"></i>
+        <div class="about-text-content">
+        <h3>脱三日坊主</h3>
+        <p>「朝のランニング」「英語会話」「読書」・・・最初はやる気があったのに気付けば三日坊主なんてことも、”１０DAYS!”はあなたのスタートをサポートします </p>
+        </div>
+      </div>
+      <div class="about-text text2">
+        <i class="fas fa-running"></i>
+        <div class="about-text-content">
+        <h3>習慣をシェアしよう</h3>
+        <p>一人では何かとサボリがちになりますが、公開してしまったらやるしかありません。みんなの力を借りて習慣付けを成功させましょう！</p>
+        </div>
+      </div>
+      <div class="about-text text3">
+      　<i class="fas fa-people-arrows"></i>
+        <div class="about-text-content">
+        <h3>サポートしよう</h3>
+        <p>”１０DAYS!”ではシェアされた誰かのチャレンジを応援できます。”いいね”を送って共に10日を走り切りましょう。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  
+ 
+ <div class="how">
+  <div class="how-back">
+    <div id="how-fade">
+    <h2>10DAYS!をスタートしよう！</h2>
+      <div class="how-content">
+ 　      <i class="fas fa-address-book"></i>
+        <div class="how-bottun-area">
+        <%if user_signed_in?%>
+        <div class="how-bottun">
+        <i class="fas fa-arrow-right"></i>
+        <%=link_to "チャレンジ一覧", posts_path%>
+        </div>
+        <div class="how-bottun">
+        <i class="fas fa-arrow-right"></i>
+        <%=link_to "チャレンジを始める", posts_new_path%>
+        </div>
+        <%else%>
+        <div class="how-bottun">
+        <i class="fas fa-arrow-right"></i>
+        <%= link_to "ログイン", posts_path %>
+        </div>
+        <div class="how-bottun">
+        <i class="fas fa-arrow-right"></i>
+        <%= link_to "新規登録", new_user_registration_path %>
+        </div>
+        <%end%>
+        </div>
+     </div>
+     </div>
+   </div>
+</div>
+
+<div class="footer"></div>
+
+</div>
+

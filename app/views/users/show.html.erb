@@ -1,0 +1,132 @@
+<div class="main">
+  <div class="user-show">
+    <div class="user-show-header">
+        <div class="name-follow">
+          <h2><%=@user.name%></h2>
+          <% unless current_user == @user %>
+            <% if current_user.following?(@user) %>
+              <%=link_to "Unfollow", destroy_relationship_path(@user.id),method: :delete%>
+          <% else %>
+              <%=link_to "Follow", create_relationship_path(@user.id),method: :post%>
+            <% end %>
+          <% end %>
+        </div>
+      <p>フォロー中 <%=@followings.count%></p>
+      <p>フォロワー <%=@followers.count%></p>
+      <% if @user==current_user%>
+      <div class="user-bottun">
+      <li class="tab is-active"> MY PAGE</li>
+      <li class="tab"> followings</li>
+      </div>
+      <%end%>
+    </div>
+  <div class="user-main">
+ <div class="user-show-content is-show">
+  <% Post.where(user_id:@user.id).each do |t| %>
+   <div class="tweet">
+        <%=link_to user_path(t.user.id) do%>
+        <h2><%=t.user.name%></h2>
+        <%end%>
+        <p><%= t.body %></p>
+        <div class="day">
+        <p><%=t.day%>日</p>
+        
+        <div class="day-bar">
+          <%for i in 1..10%>
+            <%if i<=t.day%>
+              <i  class="fas fa-circle step1"> </i>
+            <%else%>
+              <i  class="fas fa-circle step2"></i>
+            <%end%>
+            <%if i!=10%>
+              <i class="fas fa-angle-right bar-arrow"></i>
+            <%end%>  
+          <%end%>
+        </div> 
+        <% if t.user_id == current_user.id%>
+        <% if t.date!=Date.today%>
+        <p class="done"><%= link_to "更新",done_post_path(t.id), method: :post%> </p>
+        <%end%>
+        <%end%>
+        </div>
+        <div class="post-menu">
+          <p>最終更新日<%= t.date%></p>
+          <%=link_to "詳細", post_path(t.id)%>  
+          <% if t.user_id == current_user.id%>
+          <%= link_to "編集する", edit_post_path(t.id) %>
+          <%= link_to "削除する", post_path(t.id), method: :delete %>
+          <%end%>
+          <div class="like">  
+            <%if Like.find_by(user_id:current_user.id,post_id:t.id)%>
+              <%= link_to destroy_like_path(t.id), method: :post do%> 
+                <i class="fas fa-heart"></i>
+             <%end%>
+            <%else%>
+              <%= link_to create_like_path(t.id), method: :post do%> 
+                <i class="far fa-heart"></i>
+              <%end%>
+            <%end%>
+            <p><%=Like.where(post_id:t.id).count%></p>
+          </div>     
+        </div>
+      </div>
+  <%end%>
+ </div>
+<div class="user-show-content ">
+<% Post.where(user_id:@followings.ids).each do |t| %>
+   <div class="tweet">
+        <%=link_to user_path(t.user.id) do%>
+        <h2><%=t.user.name%></h2>
+        <%end%>
+        <p><%= t.body %></p>
+        <div class="day">
+        <p><%=t.day%>日</p>
+        
+        <div class="day-bar">
+          <%for i in 1..10%>
+            <%if i<=t.day%>
+              <i  class="fas fa-circle step1"> </i>
+            <%else%>
+              <i  class="fas fa-circle step2"></i>
+            <%end%>
+            <%if i!=10%>
+              <i class="fas fa-angle-right bar-arrow"></i>
+            <%end%>  
+          <%end%>
+        </div> 
+        <% if t.user_id == current_user.id%>
+        <% if t.date!=Date.today%>
+        <p class="done"><%= link_to "更新",done_post_path(t.id), method: :post%> </p>
+        <%end%>
+        <%end%>
+        </div>
+        <div class="post-menu">
+          <p>最終更新日<%= t.date%></p>
+          <%=link_to "詳細", post_path(t.id)%>  
+          <% if t.user_id == current_user.id%>
+          <%= link_to "編集する", edit_post_path(t.id) %>
+          <%= link_to "削除する", post_path(t.id), method: :delete %>
+          <%end%>
+          <div class="like">  
+            <%if Like.find_by(user_id:current_user.id,post_id:t.id)%>
+              <%= link_to destroy_like_path(t.id), method: :post do%> 
+                <i class="fas fa-heart"></i>
+             <%end%>
+            <%else%>
+              <%= link_to create_like_path(t.id), method: :post do%> 
+                <i class="far fa-heart"></i>
+              <%end%>
+            <%end%>
+            <p><%=Like.where(post_id:t.id).count%></p>
+          </div>     
+        </div>
+      </div>
+  <%end%>
+</div>
+
+
+
+ </div>  
+ 
+ </div>
+</div>

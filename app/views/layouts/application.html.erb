@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TenApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" rel="stylesheet">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <%if flash[:notice]%>
+      <div class="flash">
+      <%= flash[:notice]%>
+      </div>
+     <%end%>
+     <header>
+      <%if user_signed_in?%>
+        <%=link_to user_path(current_user.id) do%>
+        <%=current_user.name%>
+        <%end%>
+        <div class="header-list">
+        <%=link_to "チャレンジ一覧", posts_path%>
+        <%=link_to "チャレンジを始める", posts_new_path%>
+        <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+        <%=link_to "TOP", root_path%>
+        </div>
+      <%else%>
+       <%=link_to "TOP", root_path%>
+        <div class="header-list">
+        <%= link_to "ログイン", posts_path %>
+        <%= link_to "新規登録", new_user_registration_path %>
+        </div>
+      <%end%>  
+      
+     </header>
+     
+    <%= yield %>
+   
+  </body>
+</html>
